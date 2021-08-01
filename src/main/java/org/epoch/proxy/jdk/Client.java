@@ -7,10 +7,11 @@ package org.epoch.proxy.jdk;
  */
 public class Client {
     public static void main(String[] args) {
-
         RealSubject realSubject = new RealSubject();
-        Proxy proxy = new Proxy(realSubject);
-        ISubject subject = (ISubject) ProxyFactory.bind(realSubject, proxy);
-        subject.request();
+        // Only Build an invocationHandler
+        ProxyAction proxyAction = new ProxyAction(realSubject);
+        // Get Real Proxy Object
+        ISubject proxyObject = (ISubject) ProxyFactory.bind(realSubject, proxyAction);
+        proxyObject.request();
     }
 }
