@@ -20,7 +20,10 @@ public class CglibProxy implements MethodInterceptor {
 
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         System.out.println("###   before invocation");
-        Object result = method.invoke(target, objects);
+        // methodProxy.invokeSuper(o, objects)为FastClass机制调用
+        Object result = methodProxy.invokeSuper(o, objects);
+        // 注释部分是反射调用
+        // Object result = method.invoke(target, objects);
         System.out.println("###   end invocation");
         return result;
     }
